@@ -60,9 +60,9 @@ public class Sistema {
 
     // Método responsável por cadastrar funcionários
     public static Funcionario cadastrarFuncionario(){
-        String nome = capturarDados("Digite seu nome: ").nextLine();
-        String cpf = capturarDados("Digite seu cpf: ").nextLine();
-        String ctps = capturarDados("Digite sua carteira de trabalho: ").nextLine();
+        String nome = capturarDados("Digite nome do funcionário: ").nextLine();
+        String cpf = capturarDados("Digite o cpf do funcionário: ").nextLine();
+        String ctps = capturarDados("Digite a carteira de trabalho do funcionário: ").nextLine();
 
         Funcionario funcionario = new Funcionario(nome, cpf, ctps);
         return funcionario;
