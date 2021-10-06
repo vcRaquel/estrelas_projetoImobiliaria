@@ -32,8 +32,8 @@ public class Sistema {
         return false;
     }
 
-    // Método responsável por cadastrar moradores
-    public static Morador cadastrarMoradores(){
+    // Método responsável por receber dados para cadastrar moradores
+    public static Morador receberDadosMoradores(){
         String nome = capturarDados("Digite seu nome: ").nextLine();
         String cpf = capturarDados("Digite seu cpf: ").nextLine();
         String telefone = capturarDados("Digite o seu telefone: ").nextLine();
@@ -41,6 +41,21 @@ public class Sistema {
 
         Morador morador = new Morador(nome, cpf, telefone, renda);
         return morador;
+    }
+    //Método responsável por cadastrar um morador
+    public static void cadastraMorador(Imobiliaria imobiliaria, Imovel imovel){
+        Morador morador = receberDadosMoradores();
+        //chama o método de validar o cpf
+        // que irá retornar true se o cpf já for cadastrado e false se o cpf não for cadastrado
+        boolean cpfDeCadastro = validaCpf(imobiliaria,morador);
+        if (cpfDeCadastro){
+            //se o validacpf retornar true (o cpf existe no cadastro)
+            System.out.println("CPF já cadastrado no sistema");
+        }else{
+            //se o valida cpf retornar false (o cpf não existe no cadastro)
+            //será permitido adicionar o cadastro do morador no imóvel
+            imovel.adicionaMorador(morador);
+        }
     }
 
     // Método responsável por cadastrar funcionários
