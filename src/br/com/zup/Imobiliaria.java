@@ -6,6 +6,11 @@ import java.util.List;
 public class Imobiliaria {
     private List<Imovel> imoveis = new ArrayList<>();
 
+    //getter
+    public List<Imovel> getImoveis() {
+        return imoveis;
+    }
+
     //método pra adicionar um imóvel na lista
     public void adicionarImovel(Imovel novoImovel){
         imoveis.add(novoImovel);
