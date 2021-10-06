@@ -34,10 +34,10 @@ public class Sistema {
 
     // Método responsável por receber dados para cadastrar moradores
     public static Morador receberDadosMoradores(){
-        String nome = capturarDados("Digite seu nome: ").nextLine();
-        String cpf = capturarDados("Digite seu cpf: ").nextLine();
-        String telefone = capturarDados("Digite o seu telefone: ").nextLine();
-        double renda = capturarDados("Digite o salario: ").nextDouble();
+        String nome = capturarDados("Digite o nome do morador: ").nextLine();
+        String cpf = capturarDados("Digite o cpf do morador: ").nextLine();
+        String telefone = capturarDados("Digite o telefone do morador: ").nextLine();
+        double renda = capturarDados("Digite a renda do morador: ").nextDouble();
 
         Morador morador = new Morador(nome, cpf, telefone, renda);
         return morador;
