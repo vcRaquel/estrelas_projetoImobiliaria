@@ -18,6 +18,19 @@ public class Sistema {
         System.out.println("Digite 2 - Para exibir os imóveis cadastrados. ");
         System.out.println("Digite 3 - Para sair");
     }
+    //método para validar cpf existente na imobiliária
+    private static boolean validaCpf(Imobiliaria imobiliaria, Morador morador){
+        //procurar na imobiliária cada um dos imóveis
+        for (Imovel imovelReferencia: imobiliaria.getImoveis()){
+            //procurar dentro de cada imóvel, o morador
+            for (Morador moradorReferencia: imovelReferencia.getMoradores()){
+                if (moradorReferencia.getCpf().equals(morador.getCpf()));
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     // Método responsável por cadastrar moradores
     public static Morador cadastrarMoradores(){
