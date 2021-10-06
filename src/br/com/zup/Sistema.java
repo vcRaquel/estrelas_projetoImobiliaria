@@ -95,7 +95,9 @@ public class Sistema {
 
                     int qtdMoradores = capturarDados("Digite a quantidade de moradores: ").nextInt();
                     for (int i = 0; i < qtdMoradores; i++) {
-                        Morador morador = cadastrarMoradores();
+
+                        Morador morador = receberDadosMoradores();
+                        cadastraMorador(imobiliaria,imovel);
                         imovel.adicionaMorador(morador);
                     }
 
