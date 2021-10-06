@@ -32,9 +32,9 @@ public class Sistema {
 
             //procurar dentro de cada imóvel, o morador
             for (Morador moradorReferencia : imovelReferencia.getMoradores()) {
-                if (moradorReferencia.getCpf().equals(morador.getCpf())){
+                if (moradorReferencia.getCpf().equals(morador.getCpf())) {
                     return true;
-                } ;
+                }
 
             }
         }
@@ -42,39 +42,44 @@ public class Sistema {
         return false;
     }
 
+    //método para validar email
+
+    private static boolean validaEmail(Morador morador) {
+        if (morador.getEmail().contains("@")) {
+            return true;
+        }
+        return false;
+    }
+
     // Método responsável por receber dados para cadastrar moradores
     public static Morador receberDadosMoradores() {
         String nome = capturarDados("Digite o nome do morador: ").nextLine();
         String cpf = capturarDados("Digite o cpf do morador: ").nextLine();
+        String email = capturarDados("Digite o e-mail do morador:").nextLine();
         String telefone = capturarDados("Digite o telefone do morador: ").nextLine();
         double renda = capturarDados("Digite a renda do morador: ").nextDouble();
 
-        Morador morador = new Morador(nome, cpf, telefone, renda);
+        Morador morador = new Morador(nome, cpf, telefone, renda, email);
         return morador;
     }
 
     //Método responsável por cadastrar um morador
     public static void cadastraMorador(Imobiliaria imobiliaria, Imovel imovel) {
         Morador morador = receberDadosMoradores();
-        //se alista está vazia, cadastra um morador
-        if (imobiliaria.getImoveis().isEmpty()){
+        //Irá retornar true se o email for válido e false se o email for inválido
+        boolean emailValido = validaEmail(morador);
+        //Irá retornar true se o cpf já for cadastrado e false se o cpf não for cadastrado
+        boolean cpfDeCadastro = validaCpf(imobiliaria, morador);
+        if (emailValido && !cpfDeCadastro) {
             imovel.adicionaMorador(morador);
-        }else{
-            //chama o método de validar o cpf
-            // que irá retornar true se o cpf já for cadastrado
-            // e false se o cpf não for cadastrado
-            boolean cpfDeCadastro = validaCpf(imobiliaria, morador);
-
-            if (cpfDeCadastro) {
-                //se o validacpf retornar true (o cpf existe no cadastro)
-                System.out.println("CPF já cadastrado no sistema");
-            } else {
-                //se o valida cpf retornar false (o cpf não existe no cadastro)
-                //será permitido adicionar o cadastro do morador no imóvel
-                imovel.adicionaMorador(morador);
-            }
+        }
+        if (!emailValido) {
+            System.out.println("Por favor digite um e-mail válido");
         }
 
+        if (cpfDeCadastro) {
+            System.out.println("CPF já cadastrado no sistema");
+        }
     }
 
     // Método responsável por cadastrar funcionários
@@ -119,7 +124,6 @@ public class Sistema {
 
         while (menu) {
 
-
             menu();
             int opcaoDoUsuario = capturarDados("Digite a opção desejada: ").nextInt();
 
@@ -130,7 +134,6 @@ public class Sistema {
                 imovel.setFuncionarioResponsavel(funcionario);
 
                 boolean submenu = true;
-
 
                 while (submenu) {
                     submenu();
@@ -154,7 +157,6 @@ public class Sistema {
                 System.out.println("Obrigado e volte sempre");
                 menu = false;
             }
-
 
         }
     }

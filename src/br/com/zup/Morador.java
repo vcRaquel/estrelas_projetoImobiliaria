@@ -3,6 +3,7 @@ package br.com.zup;
 public class Morador extends Pessoa{
     private String telefone;
     private double renda;
+    private String email;
 
     //Contrutores
 
@@ -10,10 +11,11 @@ public class Morador extends Pessoa{
 
     }
 
-    public Morador(String nome, String cpf, String telefone, double renda) {
+    public Morador(String nome, String cpf, String telefone, double renda, String email) {
         super(nome, cpf);
         this.telefone = telefone;
         this.renda = renda;
+        this.email = email;
     }
 
     //Getters e Setters
@@ -32,6 +34,14 @@ public class Morador extends Pessoa{
 
     public void setRenda(double renda) {
         this.renda = renda;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     //toString
