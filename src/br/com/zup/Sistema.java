@@ -16,7 +16,8 @@ public class Sistema {
         System.out.println("BEM VINDE À IMOBILIARIA VOCÊ SEM CASA MINHA FELICIDADE");
         System.out.println("Digite 1 - Para cadastrar um imóvel. ");
         System.out.println("Digite 2 - Para exibir os imóveis cadastrados. ");
-        System.out.println("Digite 3 - Para sair");
+        System.out.println("Digite 3 para excluir um morador");
+        System.out.println("Digite 4 - Para sair");
     }
 
     public static void submenu() {
@@ -28,10 +29,13 @@ public class Sistema {
     private static boolean validaCpf(Imobiliaria imobiliaria, Morador morador) {
         //procurar na imobiliária cada um dos imóveis
         for (Imovel imovelReferencia : imobiliaria.getImoveis()) {
+
             //procurar dentro de cada imóvel, o morador
             for (Morador moradorReferencia : imovelReferencia.getMoradores()) {
-                if (moradorReferencia.getCpf().equals(morador.getCpf())) ;
-                return true;
+                if (moradorReferencia.getCpf().equals(morador.getCpf())){
+                    return true;
+                } ;
+
             }
         }
 
@@ -52,18 +56,25 @@ public class Sistema {
     //Método responsável por cadastrar um morador
     public static void cadastraMorador(Imobiliaria imobiliaria, Imovel imovel) {
         Morador morador = receberDadosMoradores();
-        //chama o método de validar o cpf
-        // que irá retornar true se o cpf já for cadastrado e false se o cpf não for cadastrado
-        boolean cpfDeCadastro = validaCpf(imobiliaria, morador);
-
-        if (cpfDeCadastro) {
-            //se o validacpf retornar true (o cpf existe no cadastro)
-            System.out.println("CPF já cadastrado no sistema");
-        } else {
-            //se o valida cpf retornar false (o cpf não existe no cadastro)
-            //será permitido adicionar o cadastro do morador no imóvel
+        //se alista está vazia, cadastra um morador
+        if (imobiliaria.getImoveis().isEmpty()){
             imovel.adicionaMorador(morador);
+        }else{
+            //chama o método de validar o cpf
+            // que irá retornar true se o cpf já for cadastrado
+            // e false se o cpf não for cadastrado
+            boolean cpfDeCadastro = validaCpf(imobiliaria, morador);
+
+            if (cpfDeCadastro) {
+                //se o validacpf retornar true (o cpf existe no cadastro)
+                System.out.println("CPF já cadastrado no sistema");
+            } else {
+                //se o valida cpf retornar false (o cpf não existe no cadastro)
+                //será permitido adicionar o cadastro do morador no imóvel
+                imovel.adicionaMorador(morador);
+            }
         }
+
     }
 
     // Método responsável por cadastrar funcionários
@@ -83,6 +94,22 @@ public class Sistema {
 
         Imovel imovel = new Imovel(endereco, valorAluguel);
         return imovel;
+    }
+
+    //método responsável por excluir um morador
+    public static String excluiMorador(Imobiliaria imobiliaria) {
+        String cpf = capturarDados("Digite o CPF do morador a ter o cadastro excluído: ").nextLine();
+        //procurar em todos os imoveis
+        for (Imovel imovelReferencia : imobiliaria.getImoveis()) {
+            //procurar na lista de moradores de cada imóvel
+            for (Morador moradorReferencia : imovelReferencia.getMoradores()) {
+                if (moradorReferencia.getCpf().equals(cpf)) {
+                    imovelReferencia.getMoradores().remove(moradorReferencia);
+                    return "Cadastro deletado com sucesso";
+                }
+            }
+        }
+        return "Morador não cadastrado no sistema";
     }
 
     // Método responsável juntar tudo
@@ -121,6 +148,9 @@ public class Sistema {
             } else if (opcaoDoUsuario == 2) {
                 System.out.println(imobiliaria);
             } else if (opcaoDoUsuario == 3) {
+                String removendoMorador = excluiMorador(imobiliaria);
+                System.out.println(removendoMorador);
+            } else if (opcaoDoUsuario == 4) {
                 System.out.println("Obrigado e volte sempre");
                 menu = false;
             }
